@@ -1,6 +1,6 @@
 galaxy_info:
   author: Tadej Borovšak
-  description: Installing pgAdmin4 on RedHat 7.
+  description: Install pgAdmin4 web client.
 
   issue_tracker_url: https://github.com/deekayen/ansible-role-pgadmin4/issues
   license: BSD
