@@ -4,7 +4,7 @@ galaxy_info:
 
   issue_tracker_url: https://github.com/deekayen/ansible-role-pgadmin4/issues
   license: BSD
-  min_ansible_version: 1.2
+  min_ansible_version: 2.0
   github_branch: master
 
   platforms:
