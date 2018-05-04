@@ -1,0 +1,56 @@
+---
+
+- name: Install Apache.
+  package:
+    name: "{{ item }}"
+  with_items:
+    - httpd
+    - mod_wsgi
+
+- name: Start Apache.
+  service:
+    name: httpd
+    enabled: yes
+    state: started
+
+- name: Set SELinux permissions to allow Apache to access pgadmin sqlite db.
+  seboolean:
+    name: httpd_can_network_connect_db
+    state: yes
+    persistent: yes
+
+- name: Add PostgreSQL repo.
+  package:
+    name: "{{ pgdg_package }}"
+    state: present
+
+- name: Install pgAdmin4-web.
+  yum:
+    name: pgadmin4-web
+    state: present
+
+- name: Initialize pgAdmin4.
+  command: python /usr/lib/python2.7/site-packages/pgadmin4-web/setup.py
+  args:
+    creates: /var/lib/pgadmin/pgadmin4.db
+  environment:
+    PGADMIN_SETUP_EMAIL: "{{ pgadmin_setup_email }}"
+    PGADMIN_SETUP_PASSWORD: "{{ pgadmin_setup_password }}"
+
+- name: Install pgAdmin4 site config.
+  copy:
+    src: /etc/httpd/conf.d/pgadmin4.conf.sample
+    dest: /etc/httpd/conf.d/pgadmin4.conf
+    remote_src: yes
+  notify: restart httpd
+
+- name: Fix pgAdmin permissions.
+  file:
+    path: "{{ item }}"
+    setype: httpd_sys_content_rw_t
+    owner: apache
+    group: apache
+    recurse: yes
+  with_items:
+    - /var/log/pgadmin
+    - /var/lib/pgadmin

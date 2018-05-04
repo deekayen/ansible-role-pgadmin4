@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Tadej Borovšak
+  description: Installing pgAdmin4 on RedHat 7.
+
+  issue_tracker_url: https://github.com/deekayen/ansible-role-pgadmin4/issues
+  license: BSD
+  min_ansible_version: 1.2
+  github_branch: master
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+  galaxy_tags:
+    - postgresql
+
+dependencies:
+  - geerlingguy.repo-epel
