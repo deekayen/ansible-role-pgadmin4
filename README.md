@@ -3,8 +3,8 @@ pgAdmin4
 
 Install pgAdmin4 web client.
 
-Role Variables
---------------
+Default Variables
+-----------------
 
 ```
 pgdg_package: https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-redhat10-10-2.noarch.rpm
