@@ -1,6 +1,8 @@
 pgAdmin4
 ========
 
+[![Build Status](https://travis-ci.org/deekayen/ansible-role-pgadmin4.svg?branch=master)](https://travis-ci.org/deekayen/ansible-role-pgadmin4)
+
 Install pgAdmin4 web client.
 
 Default Variables
