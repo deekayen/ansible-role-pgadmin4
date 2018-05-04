@@ -34,4 +34,4 @@ Including an example of how to use your role (for instance, with variables passe
 Author Information
 ------------------
 
-Most of the work was done Tadej Borovšak in [Installing pgAdmin4 on Centos 7](https://tech.xlab.si/posts/installing-pgadmin4-on-centos-7/).
+Most of the work was done by Tadej Borovšak in [Installing pgAdmin4 on Centos 7](https://tech.xlab.si/posts/installing-pgadmin4-on-centos-7/).
