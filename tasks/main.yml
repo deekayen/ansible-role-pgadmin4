@@ -47,7 +47,7 @@
 - name: Fix pgAdmin permissions.
   file:
     path: "{{ item }}"
-    setype: httpd_sys_content_rw_t
+    setype: httpd_sys_rw_content_t
     owner: apache
     group: apache
     recurse: yes
