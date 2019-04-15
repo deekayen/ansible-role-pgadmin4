@@ -29,6 +29,11 @@
     name: pgadmin4-web
     state: present
 
+- name: Install client packages.
+  yum:
+    name: postgresql10
+    state: present
+
 - name: Initialize pgAdmin4.
   command: python /usr/lib/python2.7/site-packages/pgadmin4-web/setup.py
   args:
