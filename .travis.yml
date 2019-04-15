@@ -15,15 +15,18 @@ before_install:
 
 install:
   - sudo apt-get install -y ansible
-  - sudo ansible-galaxy install deekayen.sadpuppet
+  - sudo ansible-galaxy install deekayen.pgadmin4
+  - pip install ansible-lint
   - pip install ansible-review
 
 before_script:
   - ansible --version
+  - ansible-lint --version
   - ansible-review --version
 
 script:
-  - git ls-files | grep -Ei '^[^[:punct:]].+.(yaml|yml)$' | xargs ansible-review -q
+  - git ls-files | grep -Ei '^[^[:punct:]].+.(yaml|yml)$' | xargs ansible-lint
+  - git ls-files | grep -Ei '^[^[:punct:]].+.(yaml|yml)$' | xargs ansible-review
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
