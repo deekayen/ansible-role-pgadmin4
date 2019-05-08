@@ -19,6 +19,12 @@
     state: yes
     persistent: yes
 
+- name: Set SELinux permissions to allow Apache to email password resets.
+  seboolean:
+    name: httpd_can_sendmail
+    state: yes
+    persistent: yes
+
 - name: Add PostgreSQL repo.
   package:
     name: "{{ pgdg_package }}"
