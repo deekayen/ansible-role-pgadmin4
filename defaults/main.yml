@@ -1,5 +1,5 @@
 ---
 
-pgdg_package: https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-redhat10-10-2.noarch.rpm
+pgdg_package: https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 pgadmin_setup_email: admin@example.com
 pgadmin_setup_password: correct horse battery staple

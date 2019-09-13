@@ -19,14 +19,30 @@
     state: yes
     persistent: yes
 
+- name: Set SELinux permissions to allow Apache to email password resets.
+  seboolean:
+    name: httpd_can_sendmail
+    state: yes
+    persistent: yes
+
 - name: Add PostgreSQL repo.
   package:
     name: "{{ pgdg_package }}"
     state: present
 
+- name: Install python-psycopg2 dependency.
+  yum:
+    name: python-psycopg2
+    state: present
+
 - name: Install pgAdmin4-web.
   yum:
     name: pgadmin4-web
+    state: present
+
+- name: Install client packages.
+  yum:
+    name: postgresql10
     state: present
 
 - name: Initialize pgAdmin4.
