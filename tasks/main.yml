@@ -1,4 +1,9 @@
 ---
+- name: Install SELinux libsemanage-python support
+  package:
+    name: "{{ item }}"
+  with_items:
+    - libsemanage-python
 
 - name: Install Apache.
   package:
