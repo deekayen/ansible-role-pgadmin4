@@ -43,6 +43,7 @@
 - name: Install pgAdmin4-web.
   yum:
     name: pgadmin4-web
+    enablerepo: ol7_developer_EPEL
     state: present
 
 - name: Install client packages.
