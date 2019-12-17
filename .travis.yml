@@ -10,7 +10,7 @@ addons:
 
 install:
   - pip3 install ansible
-  - sudo ansible-galaxy install deekayen.pgadmin4
+  - ansible-galaxy install deekayen.pgadmin4
   - pip3 install ansible-lint
   - pip3 install ansible-review
 
