@@ -8,11 +8,8 @@ addons:
     - software-properties-common
     - python3-pip
 
-before_install:
-  - sudo apt-add-repository -y ppa:ansible/ansible
-
 install:
-  - sudo apt-get install -y ansible
+  - pip3 install ansible
   - sudo ansible-galaxy install deekayen.pgadmin4
   - pip3 install ansible-lint
   - pip3 install ansible-review
