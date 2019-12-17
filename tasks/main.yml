@@ -4,8 +4,8 @@
   package:
     name: "{{ item }}"
   with_items:
-    - httpd
-    - mod_wsgi
+  - httpd
+  - mod_wsgi
 
 - name: Start Apache.
   service:
@@ -68,5 +68,5 @@
     group: apache
     recurse: yes
   with_items:
-    - /var/log/pgadmin
-    - /var/lib/pgadmin
+  - /var/log/pgadmin
+  - /var/lib/pgadmin
