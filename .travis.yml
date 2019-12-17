@@ -2,7 +2,7 @@
 
 language: python
 sudo: required
-dist: trusty
+dist: bionic
 addons:
   apt:
     packages:
