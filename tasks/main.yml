@@ -1,11 +1,11 @@
 ---
 
 - name: Install Apache.
-  package:
-    name: "{{ item }}"
-  with_items:
-  - httpd
-  - mod_wsgi
+  yum:
+    name:
+      - httpd
+      - mod_wsgi
+    state: present
 
 - name: Start Apache.
   service:
@@ -26,7 +26,7 @@
     persistent: yes
 
 - name: Add PostgreSQL repo.
-  package:
+  yum:
     name: "{{ pgdg_package }}"
     state: present
 
