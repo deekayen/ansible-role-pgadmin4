@@ -41,6 +41,7 @@
   pip:
     name: flask-compress
     state: present
+  notify: restart httpd
 
 - name: Install pgAdmin4-web.
   yum:
