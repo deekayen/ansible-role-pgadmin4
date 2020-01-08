@@ -30,9 +30,11 @@
     name: "{{ pgdg_package }}"
     state: present
 
-- name: Install python-psycopg2 dependency.
+- name: Install python dependencies.
   yum:
-    name: python-psycopg2
+    name:
+      - python-flask
+      - python-psycopg2
     state: present
 
 - name: Install pgAdmin4-web.
