@@ -50,7 +50,7 @@
 
 - name: Install client packages.
   yum:
-    name: postgresql10
+    name: postgresql11
     state: present
 
 - name: Initialize pgAdmin4.
