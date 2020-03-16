@@ -3,8 +3,8 @@
 - name: Install Apache.
   yum:
     name:
-      - httpd
-      - mod_wsgi
+    - httpd
+    - mod_wsgi
     state: present
 
 - name: Start Apache.
@@ -19,8 +19,8 @@
     state: yes
     persistent: yes
   when:
-    - ansible_selinux is defined
-    - ansible_selinux.status == 'enabled'
+  - ansible_selinux is defined
+  - ansible_selinux.status == 'enabled'
 
 - name: Set SELinux permissions to allow Apache to email password resets.
   seboolean:
@@ -28,8 +28,8 @@
     state: yes
     persistent: yes
   when:
-    - ansible_selinux is defined
-    - ansible_selinux.status == 'enabled'
+  - ansible_selinux is defined
+  - ansible_selinux.status == 'enabled'
 
 - name: Add PostgreSQL repo.
   yum:
@@ -39,8 +39,8 @@
 - name: Install python dependency packages.
   yum:
     name:
-      - python-flask
-      - python-psycopg2
+    - python-flask
+    - python-psycopg2
     state: present
 
 - name: Install python pip modules.
