@@ -23,12 +23,14 @@
     name: httpd_can_network_connect_db
     state: yes
     persistent: yes
+  when: ansible_selinux is defined and ansible_selinux != False and ansible_selinux.status == 'enabled'
 
 - name: Set SELinux permissions to allow Apache to email password resets.
   seboolean:
     name: httpd_can_sendmail
     state: yes
     persistent: yes
+  when: ansible_selinux is defined and ansible_selinux != False and ansible_selinux.status == 'enabled'
 
 - name: Add PostgreSQL repo.
   package:
