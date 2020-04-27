@@ -39,9 +39,9 @@
 - name: Install python dependency packages.
   yum:
     name:
-      - python-alembic
-      - python-flask
-      - python-psycopg2
+    - python-alembic
+    - python-flask
+    - python-psycopg2
     state: present
 
 - name: Install python pip modules.
