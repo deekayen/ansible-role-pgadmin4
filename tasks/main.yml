@@ -3,8 +3,8 @@
 - name: Install Apache.
   yum:
     name:
-      - httpd
-      - mod_wsgi
+    - httpd
+    - mod_wsgi
     state: present
 
 - name: Start Apache.
@@ -28,8 +28,8 @@
     state: yes
     persistent: yes
   when:
-    - ansible_selinux is defined
-    - ansible_selinux.status == 'enabled'
+  - ansible_selinux is defined
+  - ansible_selinux.status == 'enabled'
 
 - name: Add PostgreSQL repo.
   yum:
@@ -47,8 +47,8 @@
 - name: Install python pip modules.
   pip:
     name:
-      - flask_babelex
-      - flask-compress
+    - flask_babelex
+    - flask-compress
     state: present
   notify: restart httpd
 
@@ -85,5 +85,5 @@
     group: apache
     recurse: yes
   with_items:
-    - /var/log/pgadmin
-    - /var/lib/pgadmin
+  - /var/log/pgadmin
+  - /var/lib/pgadmin
