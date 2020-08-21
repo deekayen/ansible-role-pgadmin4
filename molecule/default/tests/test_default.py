@@ -5,7 +5,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
 
 
-def test_awscli2_apache(host):
+def test_pgadmin4_apache(host):
     assert host.package("httpd").is_installed
     assert host.package("mod_wsgi").is_installed
 
@@ -17,13 +17,13 @@ def test_awscli2_apache(host):
     assert host.user("apache").exists
 
 
-def test_awscli2_pyenv(host):
+def test_pgadmin4_pyenv(host):
     assert host.package("python-alembic").is_installed
     assert host.package("python-flask").is_installed
     assert host.package("python-psycopg2").is_installed
 
 
-def test_awscli2_pgadmin4(host):
+def test_pgadmin4_feature(host):
     assert host.package("pgadmin4-web").is_installed
     assert host.package("postgresql11").is_installed
 

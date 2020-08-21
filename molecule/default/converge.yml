@@ -4,4 +4,4 @@
   become: true
 
   roles:
-    - role: deekayen.awscli2
+    - role: deekayen.pgadmin4
