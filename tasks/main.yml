@@ -75,7 +75,7 @@
     var: setup_path
 
 - name: Initialize pgAdmin4.
-  command: python /usr/lib/python2.7/site-packages/pgadmin4-web/setup.py
+  command: "python {{ setup_path.files[0].path }}/setup.py"
   args:
     creates: /var/lib/pgadmin/pgadmin4.db
   environment:
