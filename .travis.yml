@@ -8,7 +8,6 @@ env:
   global:
     - ROLE_NAME: pgadmin4
   matrix:
-    - MOLECULE_DISTRO: centos8
     - MOLECULE_DISTRO: centos7
 
 addons:
