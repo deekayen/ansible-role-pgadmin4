@@ -76,9 +76,10 @@
     src: /etc/httpd/conf.d/pgadmin4.conf.sample
     dest: /etc/httpd/conf.d/pgadmin4.conf
     remote_src: yes
+    mode: 0644
   notify: restart httpd
 
-- name: Fix pgAdmin permissions.
+- name: "Fix pgAdmin permissions." # noqa 208
   file:
     path: "{{ item }}"
     setype: httpd_sys_rw_content_t

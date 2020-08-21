@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: pgadmin4
   author: Tadej Borovšak
   description: Install pgAdmin4 web client.
 
