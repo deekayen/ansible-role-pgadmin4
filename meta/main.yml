@@ -9,9 +9,9 @@ galaxy_info:
   github_branch: master
 
   platforms:
-  - name: EL
-    versions:
-    - 7
+    - name: EL
+      versions:
+        - 7
 
   galaxy_tags:
   - postgresql
