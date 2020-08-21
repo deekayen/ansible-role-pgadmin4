@@ -14,8 +14,8 @@ galaxy_info:
         - 7
 
   galaxy_tags:
-  - postgresql
-  - database
+    - postgresql
+    - database
 
 dependencies:
-- geerlingguy.repo-epel
+  - geerlingguy.repo-epel
