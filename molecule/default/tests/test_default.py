@@ -11,6 +11,11 @@ def test_awscli2_apache(host):
 
     assert host.file("/etc/httpd/conf.d/pgadmin4.conf").is_file
 
+    assert host.service('httpd').is_enabled
+    assert host.service('httpd').is_running
+
+    assert host.user("apache").exists
+
 
 def test_awscli2_pyenv(host):
     assert host.package("python-alembic").is_installed
