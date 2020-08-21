@@ -66,8 +66,8 @@
 - name: Locate the setup script.
   find:
     paths: /usr/lib
-    patterns: 'setup.py'
-    file_type: file
+    patterns: pgadmin4-web
+    file_type: directory
     recurse: yes
   register: setup_path
 
