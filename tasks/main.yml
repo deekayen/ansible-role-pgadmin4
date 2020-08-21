@@ -63,6 +63,17 @@
     name: postgresql11
     state: present
 
+- name: Locate the setup script.
+  find:
+    paths: /usr/lib
+    patterns: 'setup.py'
+    file_type: file
+    recurse: yes
+  register: setup_path
+
+- debug:
+    var: setup_path
+
 - name: Initialize pgAdmin4.
   command: python /usr/lib/python2.7/site-packages/pgadmin4-web/setup.py
   args:
