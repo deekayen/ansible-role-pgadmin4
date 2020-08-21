@@ -1,12 +1,14 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: requirements.yml
 driver:
   name: docker
 lint: |
   set -e
   /usr/bin/yamllint . &&
-  ansible-lint &&
+  ansible-lint -q &&
   flake8
 platforms:
   - name: instance
