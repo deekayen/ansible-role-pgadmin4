@@ -1,0 +1,8 @@
+molecule
+ansible
+ansible-lint
+flake8
+yamllint
+testinfra
+docker
+jmespath

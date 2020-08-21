@@ -1,27 +1,35 @@
 ---
 
 language: python
-dist: bionic
+dist: focal
+services: docker
+
+env:
+  global:
+    - ROLE_NAME: pgadmin4
+  matrix:
+    - MOLECULE_DISTRO: centos8
+    - MOLECULE_DISTRO: centos7
+
 addons:
   apt:
+    sources:
+      - sourceline: 'deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable'
     packages:
-    - software-properties-common
-    - python3-pip
+      - docker
+      - yamllint
+    update: true
 
 install:
-  - pip3 install ansible
-  - ansible-galaxy install deekayen.pgadmin4
-  - pip3 install ansible-lint
-  - pip3 install ansible-review
+  - pip install --upgrade --upgrade-strategy eager -r requirements.txt
 
 before_script:
-  - ansible --version
-  - ansible-lint --version
-  - ansible-review --version
+  - cd ../
+  - mv ansible-role-$ROLE_NAME deekayen.$ROLE_NAME
+  - cd deekayen.$ROLE_NAME
 
 script:
-  - git ls-files | grep -Ei '^[^[:punct:]].+.(yaml|yml)$' | xargs ansible-lint
-  - git ls-files | grep -Ei '^[^[:punct:]].+.(yaml|yml)$' | xargs ansible-review -q
+  - molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
