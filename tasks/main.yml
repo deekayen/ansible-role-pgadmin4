@@ -47,6 +47,7 @@
 - name: Install python pip modules.
   pip:
     name:
+      - click
       - flask_babelex
       - flask-compress
       - future
