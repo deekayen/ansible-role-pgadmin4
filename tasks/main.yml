@@ -49,6 +49,7 @@
     name:
       - flask_babelex
       - flask-compress
+      - future
       - ldap3
     state: present
   notify: restart httpd
