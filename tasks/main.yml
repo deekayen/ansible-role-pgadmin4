@@ -22,6 +22,15 @@
     - ansible_selinux is defined
     - ansible_selinux.status == 'enabled'
 
+- name: Set SELinux permissions to allow Apache to use LDAP authentication.
+  seboolean:
+    name: httpd_can_connect_ldap
+    state: yes
+    persistent: yes
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux.status == 'enabled'
+
 - name: Set SELinux permissions to allow Apache to email password resets.
   seboolean:
     name: httpd_can_sendmail
