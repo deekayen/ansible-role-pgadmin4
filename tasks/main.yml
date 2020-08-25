@@ -76,7 +76,7 @@
 
 - name: Locate the setup shell script.
   find:
-    paths: /
+    paths: /usr
     patterns: setup-web.sh
     file_type: file
     recurse: yes
