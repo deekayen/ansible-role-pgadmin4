@@ -24,7 +24,7 @@
 
 - name: Set SELinux permissions to allow Apache to use LDAP authentication.
   seboolean:
-    name: httpd_can_connect_ldap
+    name: httpd_can_network_connect
     state: yes
     persistent: yes
   when:
