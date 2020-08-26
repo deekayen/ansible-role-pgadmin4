@@ -117,11 +117,11 @@
     creates: /var/lib/pgadmin/pgadmin4.db
     echo: yes
     responses:
-      'Email address:': "{{ pgadmin_setup_email }}"
+      'Email\ address:': "{{ pgadmin_setup_email }}"
       'Password:': "{{ pgadmin_setup_password }}"
-      'Retype password:': "{{ pgadmin_setup_password }}"
-      'Do you wish to continue \(y/n\)\?': "y"
-      'Would you like to continue \(y/n\)\?': "y"
+      'Retype\ password:': "{{ pgadmin_setup_password }}"
+      'Do\ you\ wish\ to\ continue\ \(y/n\)\?': "y"
+      'Would\ you\ like\ to\ continue\ \(y/n\)\?': "y"
 #  no_log: true
 
 - name: Install pgAdmin4 site config.
