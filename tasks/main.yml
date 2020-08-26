@@ -117,7 +117,7 @@
     creates: /var/lib/pgadmin/pgadmin4.db
     echo: yes
     responses:
-      'Email\ address:': "{{ pgadmin_setup_email | trim }}"
+      'Email\ address:': "{{ pgadmin_setup_email | replace('@', '\@') | trim }}"
       'Password:': "{{ pgadmin_setup_password | trim }}"
       'Retype\ password:': "{{ pgadmin_setup_password | trim }}"
       'Do\ you\ wish\ to\ continue\ \(y/n\)\?': "y"
