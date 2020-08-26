@@ -59,6 +59,7 @@
       - bcrypt<=3.1.7
       - blinker
       - click
+      - pexpect>=3.3
       - flask_babelex
       - flask-compress
       - Flask-Security-Too>=3.0.0
@@ -111,12 +112,15 @@
     var: python_setup_path
 
 - name: Initialize pgAdmin4.
-  command: "python {{ python_setup_path.files[0].path }}/setup.py"
-  args:
+  expect:
+    command: "python {{ python_setup_path.files[0].path }}/setup.py"
     creates: /var/lib/pgadmin/pgadmin4.db
-  environment:
-    PGADMIN_SETUP_EMAIL: "{{ pgadmin_setup_email }}"
-    PGADMIN_SETUP_PASSWORD: "{{ pgadmin_setup_password }}"
+    echo: yes
+    responses:
+      (?i)address: "{{ pgadmin_setup_email }}"
+      (?i)assword: "{{ pgadmin_setup_password }}"
+      y/n: y
+#  no_log: true
 
 - name: Install pgAdmin4 site config.
   copy:
