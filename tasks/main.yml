@@ -1,5 +1,11 @@
 ---
 
+- name: Install SELinux libsemanage-python support.
+  yum:
+    name:
+      - libsemanage-python
+    state: present
+
 - name: Install Apache.
   yum:
     name:
@@ -13,31 +19,28 @@
     enabled: yes
     state: started
 
-- name: Set SELinux permissions to allow Apache to access pgadmin sqlite db.
-  seboolean:
-    name: httpd_can_network_connect_db
-    state: yes
-    persistent: yes
-  when:
-    - ansible_selinux is defined
-    - ansible_selinux.status == 'enabled'
+- block:
+  - name: Set SELinux permissions to allow Apache to access pgadmin sqlite db.
+    seboolean:
+      name: httpd_can_network_connect_db
+      state: yes
+      persistent: yes
 
-- name: Set SELinux permissions to allow Apache to use LDAP authentication.
-  seboolean:
-    name: httpd_can_network_connect
-    state: yes
-    persistent: yes
-  when:
-    - ansible_selinux is defined
-    - ansible_selinux.status == 'enabled'
+  - name: Set SELinux permissions to allow Apache to use LDAP authentication.
+    seboolean:
+      name: httpd_can_network_connect
+      state: yes
+      persistent: yes
 
-- name: Set SELinux permissions to allow Apache to email password resets.
-  seboolean:
-    name: httpd_can_sendmail
-    state: yes
-    persistent: yes
+  - name: Set SELinux permissions to allow Apache to email password resets.
+    seboolean:
+      name: httpd_can_sendmail
+      state: yes
+      persistent: yes
+
   when:
     - ansible_selinux is defined
+    - ansible_selinux
     - ansible_selinux.status == 'enabled'
 
 - name: Add PostgreSQL repo.
@@ -97,7 +100,8 @@
     recurse: yes
   register: shell_setup_path
 
-- debug:
+- name: Show location of setup-web.sh.
+  debug:
     var: shell_setup_path
 
 - name: Locate the setup python script.
@@ -108,7 +112,8 @@
     recurse: yes
   register: python_setup_path
 
-- debug:
+- name: Show location of pgadmin4-web directory.
+  debug:
     var: python_setup_path
 
 - name: Initialize pgAdmin4.
