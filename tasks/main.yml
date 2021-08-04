@@ -112,7 +112,7 @@
 
 - name: Locate the setup python script.
   find:
-    paths: /usr/lib
+    paths: /opt
     patterns: pgadmin4-web
     file_type: directory
     recurse: yes
