@@ -137,7 +137,7 @@
     mode: 0644
   notify: restart httpd
 
-- name: "Fix pgAdmin permissions." # noqa 208
+- name: "Fix pgAdmin permissions."  # noqa 208
   file:
     path: "{{ item }}"
     setype: httpd_sys_rw_content_t
