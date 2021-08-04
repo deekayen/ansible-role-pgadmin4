@@ -71,6 +71,7 @@
       - flask_babelex
       - flask-compress
       - Flask-Security-Too>=3.0.0
+      - flask-socketio
       - future
       - ldap3
       - passlib
