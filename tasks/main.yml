@@ -48,6 +48,11 @@
     name: "{{ pgdg_package }}"
     state: present
 
+- name: Add pgAdmin4 repo.
+  yum:
+    name: "{{ pgadmin_package }}"
+    state: present
+
 - name: Install python dependency packages.
   yum:
     name:
@@ -85,11 +90,12 @@
 - name: Install pgAdmin4-web.
   yum:
     name: pgadmin4-web
+    update_cache: yes
     state: present
 
 - name: Install client packages.
   yum:
-    name: postgresql11
+    name: postgresql12
     state: present
 
 - name: Locate the setup shell script.
