@@ -31,3 +31,7 @@ def test_pgadmin4_feature(host):
 
     assert host.file("/var/log/pgadmin").is_directory
     assert host.file("/var/lib/pgadmin").is_directory
+
+
+def test_pgadmin4_selinux(host):
+    assert host.package("libsemanage-python").is_installed

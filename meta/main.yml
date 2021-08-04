@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   role_name: pgadmin4
+  namespace: deekayen
   author: Tadej Borovšak
   description: Install pgAdmin4 web client.
 
