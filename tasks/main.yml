@@ -56,18 +56,19 @@
 - name: Install python dependency packages.
   yum:
     name:
-      - python-alembic
-      - python-flask
-      - python-psycopg2
+      - python3
+      - python3-pip
     state: present
 
 - name: Install python pip modules.
   pip:
     name:
+      - alembic
       - bcrypt<=3.1.7
       - blinker
       - click
       - pexpect>=3.3
+      - Flask
       - flask_babelex
       - flask-compress
       - Flask-Security-Too>=3.0.0
@@ -75,6 +76,7 @@
       - future
       - ldap3
       - passlib
+      - psycopg2
       - python-dateutil>=2.8.0
       - pytz
       - simplejson
@@ -85,6 +87,7 @@
       - sqlparse
       - Werkzeug>=0.15.0
       - WTForms
+    executable: pip3
     state: present
   notify: restart httpd
 
@@ -113,7 +116,7 @@
 
 - name: Initialize pgAdmin4.
   expect:
-    command: "python {{ python_setup_path.files[0].path }}"
+    command: "python3 {{ python_setup_path.files[0].path }}"
     creates: /var/lib/pgadmin/pgadmin4.db
     echo: yes
     responses:
