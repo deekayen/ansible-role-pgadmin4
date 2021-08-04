@@ -1,5 +1,6 @@
 ---
-- name: Install SELinux libsemanage-python support
+
+- name: Install SELinux libsemanage-python support.
   package:
     name: "{{ item }}"
   with_items:
@@ -23,14 +24,14 @@
     name: httpd_can_network_connect_db
     state: yes
     persistent: yes
-  when: ansible_selinux is defined and ansible_selinux != False and ansible_selinux.status == 'enabled'
+  when: ansible_selinux is defined and ansible_selinux and ansible_selinux.status == 'enabled'
 
 - name: Set SELinux permissions to allow Apache to email password resets.
   seboolean:
     name: httpd_can_sendmail
     state: yes
     persistent: yes
-  when: ansible_selinux is defined and ansible_selinux != False and ansible_selinux.status == 'enabled'
+  when: ansible_selinux is defined and ansible_selinux and ansible_selinux.status == 'enabled'
 
 - name: Add PostgreSQL repo.
   package:
@@ -45,7 +46,6 @@
 - name: Install pgAdmin4-web.
   yum:
     name: pgadmin4-web
-    enablerepo: ol7_developer_EPEL
     state: present
 
 - name: Install client packages.
