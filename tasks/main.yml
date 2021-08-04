@@ -100,7 +100,7 @@
 
 - name: Locate the setup python script.
   find:
-    paths: /usr
+    paths: /usr/pgadmin4
     patterns: setup.py
     file_type: file
     recurse: yes
