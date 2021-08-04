@@ -1,7 +1,7 @@
 pgAdmin4
 ========
 
-[![Build Status](https://travis-ci.org/deekayen/ansible-role-pgadmin4.svg?branch=master)](https://travis-ci.org/deekayen/ansible-role-pgadmin4)
+[![Build Status](https://travis-ci.org/deekayen/ansible-role-pgadmin4.svg?branch=master)](https://travis-ci.org/deekayen/ansible-role-pgadmin4) [![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 
 Install pgAdmin4 web client and client binaries.
 
@@ -17,7 +17,7 @@ pgadmin_setup_password: correct horse battery staple
 Dependencies
 ------------
 
-The EPEL repo is used to get dependencies.
+The EPEL repo is used to get python dependencies.
 
  * geerlingguy.repo-epel
 

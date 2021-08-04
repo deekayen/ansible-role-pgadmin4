@@ -7,11 +7,11 @@
     - libsemanage-python
 
 - name: Install Apache.
-  package:
-    name: "{{ item }}"
-  with_items:
-    - httpd
-    - mod_wsgi
+  yum:
+    name:
+      - httpd
+      - mod_wsgi
+    state: present
 
 - name: Start Apache.
   service:
@@ -24,24 +24,69 @@
     name: httpd_can_network_connect_db
     state: yes
     persistent: yes
-  when: ansible_selinux is defined and ansible_selinux and ansible_selinux.status == 'enabled'
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux
+    - ansible_selinux.status == 'enabled'
+
+- name: Set SELinux permissions to allow Apache to use LDAP authentication.
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux
+    - ansible_selinux.status == 'enabled'
 
 - name: Set SELinux permissions to allow Apache to email password resets.
   seboolean:
     name: httpd_can_sendmail
     state: yes
     persistent: yes
-  when: ansible_selinux is defined and ansible_selinux and ansible_selinux.status == 'enabled'
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux
+    - ansible_selinux.status == 'enabled'
 
 - name: Add PostgreSQL repo.
-  package:
+  yum:
     name: "{{ pgdg_package }}"
     state: present
 
-- name: Install python-psycopg2 dependency.
+- name: Install python dependency packages.
   yum:
-    name: python-psycopg2
+    name:
+      - python-alembic
+      - python-flask
+      - python-psycopg2
     state: present
+
+- name: Install python pip modules.
+  pip:
+    name:
+      - bcrypt<=3.1.7
+      - blinker
+      - click
+      - pexpect>=3.3
+      - flask_babelex
+      - flask-compress
+      - Flask-Security-Too>=3.0.0
+      - future
+      - ldap3
+      - passlib
+      - python-dateutil>=2.8.0
+      - pytz
+      - simplejson
+      - speaklater
+      - six>=1.12.0
+      - sshtunnel>=0.1.5
+      - SQLAlchemy>=1.3.13
+      - sqlparse
+      - Werkzeug>=0.15.0
+      - WTForms
+    state: present
+  notify: restart httpd
 
 - name: Install pgAdmin4-web.
   yum:
@@ -50,25 +95,53 @@
 
 - name: Install client packages.
   yum:
-    name: postgresql10
+    name: postgresql11
     state: present
 
+- name: Locate the setup shell script.
+  find:
+    paths: /var
+    patterns: setup-web.sh
+    file_type: file
+    recurse: yes
+  register: shell_setup_path
+
+- debug:
+    var: shell_setup_path
+
+- name: Locate the setup python script.
+  find:
+    paths: /usr/lib
+    patterns: pgadmin4-web
+    file_type: directory
+    recurse: yes
+  register: python_setup_path
+
+- debug:
+    var: python_setup_path
+
 - name: Initialize pgAdmin4.
-  command: python /usr/lib/python2.7/site-packages/pgadmin4-web/setup.py
-  args:
+  expect:
+    command: "python {{ python_setup_path.files[0].path }}/setup.py"
     creates: /var/lib/pgadmin/pgadmin4.db
-  environment:
-    PGADMIN_SETUP_EMAIL: "{{ pgadmin_setup_email }}"
-    PGADMIN_SETUP_PASSWORD: "{{ pgadmin_setup_password }}"
+    echo: yes
+    responses:
+      'Email\ address:': "{{ pgadmin_setup_email | trim }}"
+      'Password:': "{{ pgadmin_setup_password | trim }}"
+      'Retype\ password:': "{{ pgadmin_setup_password | trim }}"
+      'Do\ you\ wish\ to\ continue\ \(y/n\)\?': "y"
+      'Would\ you\ like\ to\ continue\ \(y/n\)\?': "y"
+#  no_log: true
 
 - name: Install pgAdmin4 site config.
   copy:
     src: /etc/httpd/conf.d/pgadmin4.conf.sample
     dest: /etc/httpd/conf.d/pgadmin4.conf
     remote_src: yes
+    mode: 0644
   notify: restart httpd
 
-- name: Fix pgAdmin permissions.
+- name: "Fix pgAdmin permissions." # noqa 208
   file:
     path: "{{ item }}"
     setype: httpd_sys_rw_content_t
