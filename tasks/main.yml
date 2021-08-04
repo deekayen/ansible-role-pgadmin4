@@ -112,7 +112,7 @@
 
 - name: Initialize pgAdmin4.
   expect:
-    command: "python {{ python_setup_path.files[0].path }}/setup.py"
+    command: "python {{ python_setup_path.files[0].path }}"
     creates: /var/lib/pgadmin/pgadmin4.db
     echo: yes
     responses:
