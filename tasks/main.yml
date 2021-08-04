@@ -98,27 +98,15 @@
     name: postgresql12
     state: present
 
-- name: Locate the setup shell script.
-  find:
-    paths: /usr/pgadmin4
-    patterns: setup-web.sh
-    file_type: file
-    recurse: yes
-  register: shell_setup_path
-
-- name: Show location of setup-web.sh.
-  debug:
-    var: shell_setup_path
-
 - name: Locate the setup python script.
   find:
-    paths: /usr/lib
-    patterns: pgadmin4
-    file_type: directory
+    paths: /opt
+    patterns: setup.py
+    file_type: file
     recurse: yes
   register: python_setup_path
 
-- name: Show location of pgadmin4-web directory.
+- name: Show location of pgadmin4 directory.
   debug:
     var: python_setup_path
 
