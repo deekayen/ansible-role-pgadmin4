@@ -1,7 +1,4 @@
 ---
 
-pgdg_key: https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG
-pgdg_package: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
-pgadmin_package: https://ftp.postgresql.org/pub/pgadmin/pgadmin4/yum/pgadmin4-redhat-repo-2-1.noarch.rpm
 pgadmin_setup_email: admin@example.com
 pgadmin_setup_password: correct horse battery staple

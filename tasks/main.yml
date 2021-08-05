@@ -74,6 +74,11 @@
     name: "{{ pgdg_package }}"
     state: present
 
+- name: Import pgadmin rpm gpg key.
+  rpm_key:
+    key: "{{ pgadmin_key }}"
+    state: present
+
 - name: Add pgAdmin4 repo.
   yum:
     name: "{{ pgadmin_package }}"
