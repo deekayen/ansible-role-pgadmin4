@@ -128,14 +128,11 @@
     name: "{{ pgdg_package }}"
     state: present
 
-- name: Enable PostreSQL yum module.
-  command: "yum --nogpgcheck --assumeyes module enable postgresql:{{ pg_version }}"  # noqa command-instead-of-module
-  when: ansible_distribution_major_version|int == 8
-
 - name: Install psql client packages.
   yum:
     name: "postgresql{{ pg_version }}"
     enablerepo: pgdg12
+    disablerepo: appstream
     state: present
 
 - name: Locate the setup python script.
