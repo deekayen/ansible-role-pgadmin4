@@ -1,13 +1,13 @@
 ---
 
-- name: Install SELinux libsemanage-python support.
+- name: Install SELinux libsemanage-python EL 7 support.
   yum:
     name:
       - libsemanage-python
     state: present
   when: ansible_distribution_major_version == 7
 
-- name: Install SELinux libsemanage-python support.
+- name: Install SELinux libsemanage-python EL 8 support.
   yum:
     name:
       - python3-libsemanage
@@ -18,8 +18,21 @@
   yum:
     name:
       - httpd
+    state: present
+
+- name: Install mod_wsgi for EL 7.
+  yum:
+    name:
       - mod_wsgi
     state: present
+  when: ansible_distribution_major_version == 8
+
+- name: Install mod_wsgi for EL 8.
+  yum:
+    name:
+      - python3-mod_wsgi
+    state: present
+  when: ansible_distribution_major_version == 8
 
 - name: Start Apache.
   service:
