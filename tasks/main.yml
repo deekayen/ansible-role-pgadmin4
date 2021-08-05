@@ -64,6 +64,11 @@
     - ansible_selinux
     - ansible_selinux.status == 'enabled'
 
+- name: Import pgdg rpm gpg key.
+  rpm_key:
+    key: "{{ pgdg_key }}"
+    state: present
+
 - name: Add PostgreSQL repo.
   yum:
     name: "{{ pgdg_package }}"
