@@ -1,4 +1,5 @@
 ---
 
+pg_version: 12
 pgadmin_setup_email: admin@example.com
 pgadmin_setup_password: correct horse battery staple
