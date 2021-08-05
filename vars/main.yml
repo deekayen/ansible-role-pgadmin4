@@ -1,9 +1,5 @@
 ---
 
-# pub  1024D/442DF0F8 2008-01-08 PostgreSQL RPM Building Project <pgsql-pkg-yum@postgresql.org>
-pgdg_key: https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG
 pgdg_package: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
 
-# pub  4096R/210976F2 2018-08-14 Package Manager (Package Signing Key) <packages@pgadmin.org>
-pgadmin_key: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xe8697e2eef76c02d3a6332778881b2a8210976f2
 pgadmin_package: https://ftp.postgresql.org/pub/pgadmin/pgadmin4/yum/pgadmin4-redhat-repo-2-1.noarch.rpm
