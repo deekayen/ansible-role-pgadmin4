@@ -105,6 +105,7 @@
       - flask-paranoid
       - Flask-Security-Too>=3.0.0
       - flask-socketio
+      - flask-sqlalchemy
       - future
       - ldap3
       - passlib
