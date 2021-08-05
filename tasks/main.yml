@@ -65,18 +65,6 @@
     - ansible_selinux
     - ansible_selinux.status == 'enabled'
 
-# pub  1024D/442DF0F8 2008-01-08 PostgreSQL RPM Building Project <pgsql-pkg-yum@postgresql.org>
-- name: Import pgdg RPM GPG key.
-  rpm_key:
-    key: https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG
-    fingerprint: 68C9E2B91A37D136FE74D1761F16D2E1442DF0F8
-    state: present
-
-- name: Add PostgreSQL repo.
-  yum:
-    name: "{{ pgdg_package }}"
-    state: present
-
 - name: Add pgAdmin4 repo.
   yum:
     name: "{{ pgadmin_package }}"
@@ -128,23 +116,35 @@
     update_cache: yes
     state: present
 
+# pub  1024D/442DF0F8 2008-01-08 PostgreSQL RPM Building Project <pgsql-pkg-yum@postgresql.org>
+- name: Import pgdg RPM GPG key.
+  rpm_key:
+    key: https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG
+    fingerprint: 68C9E2B91A37D136FE74D1761F16D2E1442DF0F8
+    state: present
+
+- name: Add PostgreSQL repo.
+  yum:
+    name: "{{ pgdg_package }}"
+    state: present
+
 - name: Install client packages for EL 7.
   yum:
-    name: postgresql
+    name: postgresql13
     state: present
   when: ansible_distribution_major_version|int == 7
 
 - name: Install client packages for EL 8.
   dnf:
-    name: postgresql
+    name: postgresql13
     state: present
   when: ansible_distribution_major_version|int == 8
 
 - name: Locate the setup python script.
   find:
-    paths: /usr/lib
-    patterns: pgadmin4-web
-    file_type: directory
+    paths: /usr/pgadmin4
+    patterns: setup.py
+    file_type: file
     recurse: yes
   register: python_setup_path
 
@@ -154,7 +154,7 @@
 
 - name: Initialize pgAdmin4.
   expect:
-    command: "python3 {{ python_setup_path.files[0].path }}/setup.py"
+    command: "python3 {{ python_setup_path.files[0].path }}"
     creates: /var/lib/pgadmin/pgadmin4.db
     echo: yes
     responses:
