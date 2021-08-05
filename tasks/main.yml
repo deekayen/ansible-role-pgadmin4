@@ -121,15 +121,13 @@
 
 - name: Install client packages for EL 7.
   yum:
-    name: postgresql13
+    name: postgresql
     state: present
   when: ansible_distribution_major_version|int == 7
 
 - name: Install client packages for EL 8.
   dnf:
-    name: postgresql13
-    enablerepo: pgdg13
-    disablerepo: postgresql
+    name: postgresql
     state: present
   when: ansible_distribution_major_version|int == 8
 
