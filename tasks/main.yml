@@ -67,6 +67,7 @@
 - name: Import pgdg rpm gpg key.
   rpm_key:
     key: "{{ pgdg_key }}"
+    fingerprint: 68C9E2B91A37D136FE74D1761F16D2E1442DF0F8
     state: present
 
 - name: Add PostgreSQL repo.
@@ -77,6 +78,7 @@
 - name: Import pgadmin rpm gpg key.
   rpm_key:
     key: "{{ pgadmin_key }}"
+    fingerprint: E8697E2EEF76C02D3A6332778881B2A8210976F2
     state: present
 
 - name: Add pgAdmin4 repo.
