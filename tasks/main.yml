@@ -78,7 +78,6 @@
 - name: Import pgadmin rpm gpg key.
   rpm_key:
     key: "{{ pgadmin_key }}"
-    fingerprint: E8697E2EEF76C02D3A6332778881B2A8210976F2
     state: present
 
 - name: Add pgAdmin4 repo.
