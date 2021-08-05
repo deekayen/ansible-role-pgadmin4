@@ -102,6 +102,7 @@
       - flask_babelex
       - flask-compress
       - flask-mail
+      - flask-migrate
       - flask-paranoid
       - Flask-Security-Too>=3.0.0
       - flask-socketio
