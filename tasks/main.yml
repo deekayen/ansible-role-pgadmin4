@@ -4,6 +4,7 @@
   yum:
     name:
       - libsemanage-python
+      - policycoreutils-python
     state: present
   when: ansible_distribution_major_version|int == 7
 
@@ -11,6 +12,7 @@
   yum:
     name:
       - libsemanage
+      - policycoreutils-python-utils
       - python3-libsemanage
     state: present
   when: ansible_distribution_major_version|int == 8
@@ -152,6 +154,16 @@
 - name: Show location of pgadmin4 directory.
   debug:
     var: python_setup_path
+
+# Without this pre-existing, the setup.py script will fail
+# with a mysterious database migration error.
+- name: Create directory for the sqlite db.
+  file:
+    path: /var/lib/pgadmin
+    state: directory
+    owner: apache
+    group: apache
+    mode: 0700
 
 - name: Initialize pgAdmin4.
   expect:
