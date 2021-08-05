@@ -89,6 +89,7 @@
       - Flask
       - flask_babelex
       - flask-compress
+      - flask-mail
       - Flask-Security-Too>=3.0.0
       - flask-socketio
       - future
