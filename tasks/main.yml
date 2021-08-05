@@ -83,6 +83,13 @@
     disable_gpg_check: yes
     state: present
 
+- name: Install python dependencies.
+  yum:
+    name:
+      - python3
+      - python3-pip
+    state: present
+
 - name: Install python pip modules.
   pip:
     name:
@@ -111,6 +118,7 @@
       - sqlparse
       - werkzeug
       - WTForms
+    executable: pip3
     state: present
   notify: restart httpd
 
