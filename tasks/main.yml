@@ -64,6 +64,18 @@
     - ansible_selinux
     - ansible_selinux.status == 'enabled'
 
+# pub  1024D/442DF0F8 2008-01-08 PostgreSQL RPM Building Project <pgsql-pkg-yum@postgresql.org>
+- name: Import pgdg RPM GPG key.
+  rpm_key:
+    key: https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG
+    fingerprint: 68C9E2B91A37D136FE74D1761F16D2E1442DF0F8
+    state: present
+
+- name: Add PostgreSQL repo.
+  yum:
+    name: "{{ pgdg_package }}"
+    state: present
+
 - name: Add pgAdmin4 repo.
   yum:
     name: "{{ pgadmin_package }}"
