@@ -20,6 +20,7 @@
     name:
       - httpd
     state: present
+  notify: enable_httpd
 
 - name: Install mod_wsgi for EL 7.
   yum:
@@ -34,12 +35,6 @@
       - python3-mod_wsgi
     state: present
   when: ansible_distribution_major_version|int == 8
-
-- name: Start Apache.
-  service:
-    name: httpd
-    enabled: yes
-    state: started
 
 - block:
   - name: Set SELinux permissions to allow Apache to access pgadmin sqlite db.
