@@ -155,15 +155,26 @@
   debug:
     var: python_setup_path
 
-# Without this pre-existing, the setup.py script will fail
-# with a mysterious database migration error.
+- name: Initialize pgAdmin4.
+  expect:
+    command: "python3 {{ python_setup_path.files[0].path }}"
+    creates: /var/lib/pgadmin/pgadmin4.db
+    echo: yes
+    responses:
+      'Email\ address:': "{{ pgadmin_setup_email | trim }}"
+      'Password:': "{{ pgadmin_setup_password | trim }}"
+      'Retype\ password:': "{{ pgadmin_setup_password | trim }}"
+      'Do\ you\ wish\ to\ continue\ \(y/n\)\?': "y"
+      'Would\ you\ like\ to\ continue\ \(y/n\)\?': "y"
+  ignore_errors: true
+  register: pgadmin4_setup
+#  no_log: true
+
 - name: Create directory for the sqlite db.
   file:
-    path: /var/lib/pgadmin
-    state: directory
-    owner: apache
-    group: apache
-    mode: 0700
+    path: /var/lib/pgadmin/pgadmin4.db
+    state: absent
+  when: pgadmin4_setup.failed
 
 - name: Initialize pgAdmin4.
   expect:
@@ -176,7 +187,6 @@
       'Retype\ password:': "{{ pgadmin_setup_password | trim }}"
       'Do\ you\ wish\ to\ continue\ \(y/n\)\?': "y"
       'Would\ you\ like\ to\ continue\ \(y/n\)\?': "y"
-#  no_log: true
 
 - name: Install pgAdmin4 site config.
   copy:
