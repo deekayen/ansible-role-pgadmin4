@@ -1,5 +1,12 @@
 ---
 
+- name: Start Apache.
+  service:
+    name: httpd
+    enabled: yes
+    state: started
+  listen: enable_httpd
+
 - name: restart httpd
   service:
     name: httpd
