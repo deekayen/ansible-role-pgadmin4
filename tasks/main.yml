@@ -119,11 +119,19 @@
     update_cache: yes
     state: present
 
-- name: Install client packages.
+- name: Install client packages for EL 7.
   yum:
-    name: postgresql12
-    enablerepo: pgdg12
+    name: postgresql13
     state: present
+  when: ansible_distribution_major_version|int == 7
+
+- name: Install client packages for EL 8.
+  dnf:
+    name: postgresql13
+    enablerepo: pgdg13
+    disablerepo: postgresql
+    state: present
+  when: ansible_distribution_major_version|int == 8
 
 - name: Locate the setup python script.
   find:
