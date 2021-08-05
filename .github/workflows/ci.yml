@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         distro:
-          - centos7
+          - centos8
 
     steps:
       - name: Check out the codebase.
