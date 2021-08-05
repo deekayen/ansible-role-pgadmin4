@@ -122,6 +122,7 @@
 - name: Install client packages.
   yum:
     name: postgresql12
+    enablerepo: pgdg12
     state: present
 
 - name: Locate the setup python script.
