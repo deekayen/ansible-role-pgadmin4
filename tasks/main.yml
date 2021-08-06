@@ -168,6 +168,7 @@
       'Would\ you\ like\ to\ continue\ \(y/n\)\?': "y"
   ignore_errors: true
   register: pgadmin4_setup
+  become: yes
 
 - name: Create directory for the sqlite db.
   file:
@@ -186,6 +187,7 @@
       'Retype\ password:': "{{ pgadmin_setup_password | trim }}"
       'Do\ you\ wish\ to\ continue\ \(y/n\)\?': "y"
       'Would\ you\ like\ to\ continue\ \(y/n\)\?': "y"
+  become: yes
 
 - name: Install pgAdmin4 site config.
   copy:
