@@ -161,6 +161,7 @@
     state: directory
     owner: apache
     group: apache
+    mode: 0700
   loop:
     - /var/lib/pgadmin
     - /var/log/pgadmin
@@ -178,7 +179,6 @@
       'Would\ you\ like\ to\ continue\ \(y/n\)\?': "y"
   ignore_errors: true
   register: pgadmin4_setup
-  become: yes
 
 - name: Delete sqlite db file and try again.
   file:
@@ -197,7 +197,6 @@
       'Retype\ password:': "{{ pgadmin_setup_password | trim }}"
       'Do\ you\ wish\ to\ continue\ \(y/n\)\?': "y"
       'Would\ you\ like\ to\ continue\ \(y/n\)\?': "y"
-  become: yes
 
 - name: Set fcontext for pgadmin lib and log paths.
   command:
