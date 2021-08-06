@@ -146,7 +146,7 @@
 - name: Locate the setup python script.
   find:
     paths: /usr/pgadmin4
-    patterns: setup.py
+    patterns: setup-web.sh
     file_type: file
     recurse: yes
   register: python_setup_path
@@ -157,7 +157,7 @@
 
 - name: Initialize pgAdmin4.
   expect:
-    command: "python3 {{ python_setup_path.files[0].path }}"
+    shell: "{{ python_setup_path.files[0].path }}"
     creates: /var/lib/pgadmin/pgadmin4.db
     echo: yes
     responses:
@@ -178,7 +178,7 @@
 
 - name: Initialize pgAdmin4.
   expect:
-    command: "python3 {{ python_setup_path.files[0].path }}"
+    shell: "{{ python_setup_path.files[0].path }}"
     creates: /var/lib/pgadmin/pgadmin4.db
     echo: yes
     responses:
