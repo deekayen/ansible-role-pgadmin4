@@ -155,6 +155,16 @@
   debug:
     var: python_setup_path
 
+- name: Create directory for the sqlite db.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: apache
+    group: apache
+  loop:
+    - /var/lib/pgadmin
+    - /var/log/pgadmin
+
 - name: Initialize pgAdmin4.
   expect:
     command: "/bin/bash -c 'python3 {{ python_setup_path.files[0].path }}'"
@@ -170,7 +180,7 @@
   register: pgadmin4_setup
   become: yes
 
-- name: Create directory for the sqlite db.
+- name: Delete sqlite db file and try again.
   file:
     path: /var/lib/pgadmin/pgadmin4.db
     state: absent
@@ -188,6 +198,19 @@
       'Do\ you\ wish\ to\ continue\ \(y/n\)\?': "y"
       'Would\ you\ like\ to\ continue\ \(y/n\)\?': "y"
   become: yes
+
+- name: Set fcontext for pgadmin lib and log paths.
+  command:
+    cmd: "{{ item }}"
+  loop:
+    - "semanage fcontext -a -t httpd_var_lib_t '/var/lib/pgadmin(/.*)?' 1> /dev/null"
+    - "restorecon -R -v /var/lib/pgadmin 1> /dev/null"
+    - "semanage fcontext -a -t httpd_log_t '/var/log/pgadmin(/.*)?' 1> /dev/null"
+    - "restorecon -R -v /var/log/pgadmin 1> /dev/null"
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux
+    - ansible_selinux.status == 'enabled'
 
 - name: Install pgAdmin4 site config.
   copy:
