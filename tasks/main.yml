@@ -198,19 +198,6 @@
       'Do\ you\ wish\ to\ continue\ \(y/n\)\?': "y"
       'Would\ you\ like\ to\ continue\ \(y/n\)\?': "y"
 
-- name: Set fcontext for pgadmin lib and log paths.
-  command:
-    cmd: "{{ item }}"
-  loop:
-    - "semanage fcontext -a -t httpd_var_lib_t '/var/lib/pgadmin(/.*)?' 1> /dev/null"
-    - "restorecon -R -v /var/lib/pgadmin 1> /dev/null"
-    - "semanage fcontext -a -t httpd_log_t '/var/log/pgadmin(/.*)?' 1> /dev/null"
-    - "restorecon -R -v /var/log/pgadmin 1> /dev/null"
-  when:
-    - ansible_selinux is defined
-    - ansible_selinux
-    - ansible_selinux.status == 'enabled'
-
 - name: Install pgAdmin4 site config.
   copy:
     src: /etc/httpd/conf.d/pgadmin4.conf.sample
@@ -219,13 +206,18 @@
     mode: 0644
   notify: restart httpd
 
-- name: "Fix pgAdmin permissions."  # noqa 208
+- name: "Fix pgAdmin lib selinux permissions."  # noqa 208
   file:
-    path: "{{ item }}"
-    setype: httpd_sys_rw_content_t
+    path: /var/lib/pgadmin
+    setype: httpd_var_lib_t
     owner: apache
     group: apache
     recurse: yes
-  with_items:
-    - /var/log/pgadmin
-    - /var/lib/pgadmin
+
+- name: "Fix pgAdmin log selinux permissions."  # noqa 208
+  file:
+    path: /var/log/pgadmin
+    setype: httpd_log_t
+    owner: apache
+    group: apache
+    recurse: yes
