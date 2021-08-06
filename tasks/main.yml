@@ -157,9 +157,9 @@
 
 - name: Initialize pgAdmin4.
   expect:
-    shell: "{{ python_setup_path.files[0].path }}"
+    command: "/bin/bash -c '{{ python_setup_path.files[0].path }}'"
     creates: /var/lib/pgadmin/pgadmin4.db
-    echo: yes
+    echo: no
     responses:
       'Email\ address:': "{{ pgadmin_setup_email | trim }}"
       'Password:': "{{ pgadmin_setup_password | trim }}"
@@ -168,7 +168,6 @@
       'Would\ you\ like\ to\ continue\ \(y/n\)\?': "y"
   ignore_errors: true
   register: pgadmin4_setup
-#  no_log: true
 
 - name: Create directory for the sqlite db.
   file:
@@ -176,11 +175,11 @@
     state: absent
   when: pgadmin4_setup.failed
 
-- name: Initialize pgAdmin4.
+- name: Try again - initialize pgAdmin4.
   expect:
-    shell: "{{ python_setup_path.files[0].path }}"
+    command: "/bin/bash -c '{{ python_setup_path.files[0].path }}'"
     creates: /var/lib/pgadmin/pgadmin4.db
-    echo: yes
+    echo: no
     responses:
       'Email\ address:': "{{ pgadmin_setup_email | trim }}"
       'Password:': "{{ pgadmin_setup_password | trim }}"
